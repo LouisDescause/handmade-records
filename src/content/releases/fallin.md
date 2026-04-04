@@ -2,7 +2,7 @@
 title: "FALLIN"
 artist: "Yung Fazo"
 artist_slug: "yung-fazo"
-cover: "/src/assets/releases/fallin.jpg"
+cover: "/images/releases/fallin.jpg"
 release_date: 2025-06-27
 type: "Single"
 genres: ["Hip-Hop", "Rap"]

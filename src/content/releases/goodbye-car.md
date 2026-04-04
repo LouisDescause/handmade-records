@@ -2,7 +2,7 @@
 title: "Goodbye Car"
 artist: "Thumber"
 artist_slug: "thumber"
-cover: "/src/assets/releases/goodbye-car.jpg"
+cover: "/images/releases/goodbye-car.jpg"
 release_date: 2025-12-09
 type: "LP"
 genres: ["Indie Pop", "Pop"]

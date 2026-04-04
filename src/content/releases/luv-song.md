@@ -2,7 +2,7 @@
 title: "LUV SONG"
 artist: "Trevor Spitta"
 artist_slug: "trevor-spitta"
-cover: "/src/assets/releases/luv-song.jpg"
+cover: "/images/releases/luv-song.jpg"
 release_date: 2025-10-24
 type: "Single"
 genres: ["Hip-Hop", "Rap"]

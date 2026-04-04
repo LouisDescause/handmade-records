@@ -2,7 +2,7 @@
 title: "Sugar Plum"
 artist: "Jacob Wright"
 artist_slug: "jacob-wright"
-cover: "/src/assets/releases/sugar-plum.jpg"
+cover: "/images/releases/sugar-plum.jpg"
 release_date: 2025-04-18
 type: "Single"
 genres: ["Indie Pop", "Alternative"]

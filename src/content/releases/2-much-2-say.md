@@ -2,7 +2,7 @@
 title: "2 MUCH 2 SAY"
 artist: "AJ Vitanza"
 artist_slug: "aj-vitanza"
-cover: "/src/assets/releases/2-much-2-say.jpg"
+cover: "/images/releases/2-much-2-say.jpg"
 release_date: 2025-10-10
 type: "Single"
 genres: ["Alt-Pop", "Pop"]

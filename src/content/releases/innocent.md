@@ -2,7 +2,7 @@
 title: "INNOCENT"
 artist: "AJ Vitanza"
 artist_slug: "aj-vitanza"
-cover: "/src/assets/releases/innocent.jpg"
+cover: "/images/releases/innocent.jpg"
 release_date: 2025-05-16
 type: "Single"
 genres: ["Alt-Pop", "Pop"]

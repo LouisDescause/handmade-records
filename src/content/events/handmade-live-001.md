@@ -6,7 +6,7 @@ city: "Los Angeles, CA"
 address: "1822 W Sunset Blvd"
 is_showcase: true
 lineup: ["Dior Goodjohn", "Beeson", "Luna Maye"]
-banner: "/src/assets/events/showcase-001.jpg"
+banner: "/images/events/showcase-001.jpg"
 status: "past"
 ---
 

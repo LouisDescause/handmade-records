@@ -2,7 +2,7 @@
 title: "Stupid Sweetly"
 artist: "Thumber"
 artist_slug: "thumber"
-cover: "/src/assets/releases/stupid-sweetly.jpg"
+cover: "/images/releases/stupid-sweetly.jpg"
 release_date: 2025-03-28
 type: "Single"
 genres: ["Indie Pop"]

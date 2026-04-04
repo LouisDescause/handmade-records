@@ -2,7 +2,7 @@
 title: "Face Paint"
 artist: "Jacob Wright"
 artist_slug: "jacob-wright"
-cover: "/src/assets/releases/face-paint.jpg"
+cover: "/images/releases/face-paint.jpg"
 release_date: 2025-11-14
 type: "LP"
 genres: ["Indie Pop", "Alternative"]

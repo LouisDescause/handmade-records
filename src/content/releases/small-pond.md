@@ -2,7 +2,7 @@
 title: "Small Pond"
 artist: "Thumber"
 artist_slug: "thumber"
-cover: "/src/assets/releases/small-pond.jpg"
+cover: "/images/releases/small-pond.jpg"
 release_date: 2025-02-18
 type: "Single"
 genres: ["Indie Pop", "Pop"]

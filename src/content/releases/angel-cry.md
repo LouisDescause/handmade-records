@@ -2,7 +2,7 @@
 title: "ANGEL CRY"
 artist: "Yung Fazo"
 artist_slug: "yung-fazo"
-cover: "/src/assets/releases/angel-cry.jpg"
+cover: "/images/releases/angel-cry.jpg"
 release_date: 2025-12-26
 type: "Single"
 genres: ["Hip-Hop", "Rap"]

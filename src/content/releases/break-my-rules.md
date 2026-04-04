@@ -2,7 +2,7 @@
 title: "BREAK MY RULES"
 artist: "AJ Vitanza"
 artist_slug: "aj-vitanza"
-cover: "/src/assets/releases/break-my-rules.jpg"
+cover: "/images/releases/break-my-rules.jpg"
 release_date: 2025-08-08
 type: "Single"
 genres: ["Alt-Pop", "Pop"]

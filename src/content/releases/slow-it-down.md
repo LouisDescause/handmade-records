@@ -2,7 +2,7 @@
 title: "SLOW IT DOWN"
 artist: "AJ Vitanza"
 artist_slug: "aj-vitanza"
-cover: "/src/assets/releases/slow-it-down.jpg"
+cover: "/images/releases/slow-it-down.jpg"
 release_date: 2025-10-23
 type: "Single"
 genres: ["Alt-Pop", "Pop"]

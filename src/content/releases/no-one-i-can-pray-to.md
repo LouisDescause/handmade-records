@@ -2,7 +2,7 @@
 title: "No One I Can Pray To"
 artist: "Jacob Wright"
 artist_slug: "jacob-wright"
-cover: "/src/assets/releases/no-one-i-can-pray-to.jpg"
+cover: "/images/releases/no-one-i-can-pray-to.jpg"
 release_date: 2025-05-30
 type: "Single"
 genres: ["Indie Pop", "Alternative"]

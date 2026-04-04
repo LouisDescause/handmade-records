@@ -2,7 +2,7 @@
 title: "Honeycomb"
 artist: "Jacob Wright"
 artist_slug: "jacob-wright"
-cover: "/src/assets/releases/honeycomb.jpg"
+cover: "/images/releases/honeycomb.jpg"
 release_date: 2025-07-25
 type: "Single"
 genres: ["Indie Pop", "Alternative"]

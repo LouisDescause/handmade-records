@@ -2,7 +2,7 @@
 title: "God's Favorite"
 artist: "Dior Goodjohn"
 artist_slug: "dior-goodjohn"
-cover: "/src/assets/releases/gods-favorite.jpg"
+cover: "/images/releases/gods-favorite.jpg"
 release_date: 2024-10-25
 type: "Single"
 genres: ["Pop", "R&B"]

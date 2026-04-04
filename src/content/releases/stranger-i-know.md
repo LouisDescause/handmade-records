@@ -2,7 +2,7 @@
 title: "STRANGER I KNOW"
 artist: "AJ Vitanza"
 artist_slug: "aj-vitanza"
-cover: "/src/assets/releases/stranger-i-know.jpg"
+cover: "/images/releases/stranger-i-know.jpg"
 release_date: 2026-02-27
 type: "Single"
 genres: ["Alt-Pop", "Pop"]

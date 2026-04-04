@@ -1,6 +1,6 @@
 ---
 name: "AJ Vitanza"
-photo: "/src/assets/artists/aj-vitanza-hero.jpg"
+photo: "/images/artists/aj-vitanza-hero.jpg"
 genres: ["Alt-Pop", "Pop", "Singer-Songwriter"]
 location: "Los Angeles, CA"
 bio_short: "Emerging from Buffalo, NY — emotionally resonant pop songwriting rapidly gaining traction."

@@ -2,7 +2,7 @@
 title: "better than boston"
 artist: "Tom Siletto & Jacob Wright"
 artist_slug: "jacob-wright"
-cover: "/src/assets/releases/better-than-boston.jpg"
+cover: "/images/releases/better-than-boston.jpg"
 release_date: 2026-03-20
 type: "Single"
 genres: ["Indie Pop", "Pop"]

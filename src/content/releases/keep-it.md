@@ -2,7 +2,7 @@
 title: "KEEP IT"
 artist: "Trevor Spitta"
 artist_slug: "trevor-spitta"
-cover: "/src/assets/releases/keep-it.jpg"
+cover: "/images/releases/keep-it.jpg"
 release_date: 2025-09-19
 type: "Single"
 genres: ["Hip-Hop", "Rap"]

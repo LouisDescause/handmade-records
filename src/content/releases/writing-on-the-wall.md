@@ -2,7 +2,7 @@
 title: "WRITING ON THE WALL"
 artist: "AJ Vitanza"
 artist_slug: "aj-vitanza"
-cover: "/src/assets/releases/writing-on-the-wall.jpg"
+cover: "/images/releases/writing-on-the-wall.jpg"
 release_date: 2025-11-21
 type: "Single"
 genres: ["Alt-Pop", "Pop"]

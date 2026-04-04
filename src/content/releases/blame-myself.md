@@ -2,7 +2,7 @@
 title: "BLAME MYSELF"
 artist: "AJ Vitanza"
 artist_slug: "aj-vitanza"
-cover: "/src/assets/releases/blame-myself.jpg"
+cover: "/images/releases/blame-myself.jpg"
 release_date: 2025-12-17
 type: "Single"
 genres: ["Alt-Pop", "Pop"]

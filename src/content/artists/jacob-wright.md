@@ -1,6 +1,6 @@
 ---
 name: "Jacob Wright"
-photo: "/src/assets/artists/jacob-wright.jpg"
+photo: "/images/artists/jacob-wright.jpg"
 genres: ["Indie Pop", "Alternative"]
 location: "Los Angeles, CA"
 bio_short: "Heartfelt introspection meets timeless melodies — indie pop shaped by faith, identity, and transformation."

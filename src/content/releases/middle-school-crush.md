@@ -2,7 +2,7 @@
 title: "Middle School Crush"
 artist: "Thumber"
 artist_slug: "thumber"
-cover: "/src/assets/releases/middle-school-crush.jpg"
+cover: "/images/releases/middle-school-crush.jpg"
 release_date: 2025-09-05
 type: "Single"
 genres: ["Indie Pop"]

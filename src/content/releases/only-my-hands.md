@@ -2,7 +2,7 @@
 title: "ONLY MY HANDS"
 artist: "AJ Vitanza"
 artist_slug: "aj-vitanza"
-cover: "/src/assets/releases/only-my-hands.jpg"
+cover: "/images/releases/only-my-hands.jpg"
 release_date: 2025-09-05
 type: "Single"
 genres: ["Alt-Pop", "Pop"]

@@ -2,7 +2,7 @@
 title: "DAMAGE"
 artist: "Yung Fazo"
 artist_slug: "yung-fazo"
-cover: "/src/assets/releases/damage.jpg"
+cover: "/images/releases/damage.jpg"
 release_date: 2025-09-12
 type: "Single"
 genres: ["Hip-Hop", "Rap"]

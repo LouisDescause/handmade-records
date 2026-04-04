@@ -2,7 +2,7 @@
 title: "LIKE THAT"
 artist: "AJ Vitanza"
 artist_slug: "aj-vitanza"
-cover: "/src/assets/releases/like-that.jpg"
+cover: "/images/releases/like-that.jpg"
 release_date: 2026-01-16
 type: "Single"
 genres: ["Alt-Pop", "Pop"]

@@ -1,6 +1,6 @@
 ---
 name: "Thumber"
-photo: "/src/assets/artists/thumber.jpg"
+photo: "/images/artists/thumber.jpg"
 genres: ["Indie", "Pop"]
 location: "Los Angeles, CA"
 bio_short: "Indie pop with heart — earnest songwriting wrapped in warm, textured production."

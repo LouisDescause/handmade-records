@@ -2,7 +2,7 @@
 title: "PLASTIC HEART"
 artist: "AJ Vitanza"
 artist_slug: "aj-vitanza"
-cover: "/src/assets/releases/plastic-heart.jpg"
+cover: "/images/releases/plastic-heart.jpg"
 release_date: 2026-03-20
 type: "EP"
 genres: ["Alt-Pop", "Pop"]

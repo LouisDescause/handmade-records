@@ -2,7 +2,7 @@
 title: "Standing Water"
 artist: "Jacob Wright"
 artist_slug: "jacob-wright"
-cover: "/src/assets/releases/standing-water.jpg"
+cover: "/images/releases/standing-water.jpg"
 release_date: 2023-06-30
 type: "Single"
 genres: ["Indie Pop", "Alternative"]

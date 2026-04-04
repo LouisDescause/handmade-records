@@ -2,7 +2,7 @@
 title: "Nightcrawler"
 artist: "Jacob Wright"
 artist_slug: "jacob-wright"
-cover: "/src/assets/releases/nightcrawler.jpg"
+cover: "/images/releases/nightcrawler.jpg"
 release_date: 2025-06-27
 type: "Single"
 genres: ["Indie Pop", "Alternative"]

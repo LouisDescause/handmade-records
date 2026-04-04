@@ -2,7 +2,7 @@
 title: "RUNAWAY"
 artist: "Bradley Rittmann"
 artist_slug: "bradley-rittmann"
-cover: "/src/assets/releases/runaway.jpg"
+cover: "/images/releases/runaway.jpg"
 release_date: 2025-05-02
 type: "Single"
 genres: ["Pop", "R&B"]

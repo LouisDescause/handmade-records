@@ -2,7 +2,7 @@
 title: "House Fire"
 artist: "Jacob Wright"
 artist_slug: "jacob-wright"
-cover: "/src/assets/releases/house-fire.jpg"
+cover: "/images/releases/house-fire.jpg"
 release_date: 2025-08-22
 type: "Single"
 genres: ["Indie Pop", "Alternative"]

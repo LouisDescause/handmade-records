@@ -2,7 +2,7 @@
 title: "Forty-Niner"
 artist: "Jacob Wright"
 artist_slug: "jacob-wright"
-cover: "/src/assets/releases/forty-niner.jpg"
+cover: "/images/releases/forty-niner.jpg"
 release_date: 2025-10-24
 type: "Single"
 genres: ["Indie Pop", "Alternative"]

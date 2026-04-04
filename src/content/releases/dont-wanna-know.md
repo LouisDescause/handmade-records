@@ -2,7 +2,7 @@
 title: "DON'T WANNA KNOW"
 artist: "AJ Vitanza"
 artist_slug: "aj-vitanza"
-cover: "/src/assets/releases/dont-wanna-know.jpg"
+cover: "/images/releases/dont-wanna-know.jpg"
 release_date: 2025-07-11
 type: "Single"
 genres: ["Alt-Pop", "Pop"]
