@@ -11,10 +11,10 @@ const navLinks = [
 const currentPath = Astro.url.pathname;
 ---
 
-<header id="site-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500" transition:persist>
+<header id="site-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
   <nav class="mx-auto flex max-w-[1440px] items-center justify-between px-8 py-6 md:px-10 md:py-7">
     <!-- Logo -->
-    <a href="/" class="relative z-[60]">
+    <a href="/" class="relative" style="z-index: 102;">
       <img
         src="/images/logos/wordmark-chartreuse.svg"
         alt="Handmade Records"
@@ -44,152 +44,149 @@ const currentPath = Astro.url.pathname;
     <!-- Mobile Menu Button -->
     <button
       id="menu-toggle"
-      class="relative z-[60] flex h-12 w-12 items-center justify-center md:hidden"
+      class="relative flex h-12 w-12 items-center justify-center md:hidden"
       aria-label="Open menu"
       aria-expanded="false"
       type="button"
-      style="-webkit-tap-highlight-color: transparent; touch-action: manipulation;"
+      style="z-index: 102; -webkit-tap-highlight-color: transparent; touch-action: manipulation;"
     >
-      <div class="menu-icon space-y-1.5 pointer-events-none">
-        <span class="block h-[2px] w-6 bg-chartreuse transition-all duration-300 origin-center"></span>
-        <span class="block h-[2px] w-6 bg-chartreuse transition-all duration-300 origin-center"></span>
+      <div class="pointer-events-none" id="burger-icon">
+        <span id="bar1" class="block h-[2px] w-6 bg-chartreuse transition-all duration-300 origin-center" style="margin-bottom: 6px;"></span>
+        <span id="bar2" class="block h-[2px] w-6 bg-chartreuse transition-all duration-300 origin-center"></span>
       </div>
     </button>
   </nav>
+</header>
 
-  <!-- Mobile Menu Overlay -->
-  <div id="mobile-menu" class="fixed inset-0 z-[55] flex flex-col items-center justify-center bg-black/[0.98] transition-all duration-500 opacity-0 pointer-events-none invisible" style="backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);">
-    <ul class="flex flex-col items-center gap-6">
-      {navLinks.map((link, i) => (
-        <li class="mobile-link" style={`transition-delay: ${i * 60}ms`}>
+<!-- Mobile Menu — separate from header, uses fixed positioning with highest z-index -->
+<div
+  id="mobile-menu"
+  style="
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    display: none;
+    background: rgba(0, 0, 0, 0.98);
+    -webkit-backdrop-filter: blur(40px);
+    backdrop-filter: blur(40px);
+  "
+>
+  <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; width: 100%;">
+    <ul style="display: flex; flex-direction: column; align-items: center; gap: 28px; list-style: none; padding: 0; margin: 0;">
+      {navLinks.map((link) => (
+        <li>
           <a
             href={link.href}
-            class="font-sans text-3xl font-bold text-chartreuse transition-all duration-300 hover:text-white active:text-white active:scale-95"
-            style="-webkit-tap-highlight-color: transparent;"
+            class="mobile-nav-link font-sans text-3xl font-bold text-chartreuse"
+            style="-webkit-tap-highlight-color: transparent; text-decoration: none; display: block; padding: 8px 24px;"
           >
             {link.label}
           </a>
         </li>
       ))}
     </ul>
-    <div class="mt-12 mobile-link" style="transition-delay: 360ms">
-      <a href="mailto:friends@handmaderecords.co" class="font-mono text-[12px] uppercase tracking-[0.15em] text-white/30 transition-colors hover:text-chartreuse">
-        friends@handmaderecords.co
-      </a>
-    </div>
+    <a
+      href="mailto:friends@handmaderecords.co"
+      class="font-mono text-white/30"
+      style="margin-top: 48px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.15em; text-decoration: none;"
+    >
+      friends@handmaderecords.co
+    </a>
   </div>
-</header>
-
-<style>
-  .mobile-link {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .menu-open .mobile-link {
-    opacity: 1;
-    transform: translateY(0);
-  }
-</style>
+</div>
 
 <script>
-  function initMobileMenu() {
-    const header = document.getElementById('site-header');
+  function setupMenu() {
     const toggle = document.getElementById('menu-toggle');
     const menu = document.getElementById('mobile-menu');
-    if (!header || !toggle || !menu) return;
+    const bar1 = document.getElementById('bar1');
+    const bar2 = document.getElementById('bar2');
+    const header = document.getElementById('site-header');
+    if (!toggle || !menu || !bar1 || !bar2 || !header) return;
 
-    const spans = toggle.querySelectorAll('.menu-icon span');
-    let open = false;
-    let animating = false;
+    let isOpen = false;
 
-    function openMenu() {
-      if (animating) return;
-      animating = true;
-      open = true;
-      menu.classList.remove('invisible');
-      // Force reflow so the transition triggers
-      void menu.offsetHeight;
-      menu.classList.remove('opacity-0', 'pointer-events-none');
-      menu.classList.add('opacity-100', 'pointer-events-auto', 'menu-open');
-      toggle.setAttribute('aria-expanded', 'true');
-      toggle.setAttribute('aria-label', 'Close menu');
+    function open() {
+      isOpen = true;
+      menu.style.display = 'block';
       document.body.style.overflow = 'hidden';
-      spans[0].style.transform = 'rotate(45deg) translate(2px, 2px)';
-      spans[1].style.transform = 'rotate(-45deg) translate(2px, -2px)';
-      setTimeout(() => { animating = false; }, 400);
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.top = `-${window.scrollY}px`;
+      bar1.style.transform = 'rotate(45deg) translate(2px, 2px)';
+      bar2.style.transform = 'rotate(-45deg) translate(2px, -2px)';
+      toggle.setAttribute('aria-expanded', 'true');
     }
 
-    function closeMenu() {
-      if (animating) return;
-      animating = true;
-      open = false;
-      menu.classList.remove('opacity-100', 'pointer-events-auto', 'menu-open');
-      menu.classList.add('opacity-0', 'pointer-events-none');
-      toggle.setAttribute('aria-expanded', 'false');
-      toggle.setAttribute('aria-label', 'Open menu');
+    function close() {
+      const scrollY = document.body.style.top;
+      isOpen = false;
+      menu.style.display = 'none';
       document.body.style.overflow = '';
-      spans[0].style.transform = '';
-      spans[1].style.transform = '';
-      setTimeout(() => {
-        if (!open) menu.classList.add('invisible');
-        animating = false;
-      }, 500);
+      document.body.style.position = '';
+      document.body.style.width = '';
+      document.body.style.top = '';
+      window.scrollTo(0, parseInt(scrollY || '0') * -1);
+      bar1.style.transform = '';
+      bar2.style.transform = '';
+      toggle.setAttribute('aria-expanded', 'false');
     }
 
-    function handleToggle(e: Event) {
-      e.preventDefault();
-      e.stopPropagation();
-      if (open) closeMenu();
-      else openMenu();
+    // Toggle handler
+    function doToggle() {
+      if (isOpen) close();
+      else open();
     }
 
-    // Remove old listeners by cloning
-    const newToggle = toggle.cloneNode(true) as HTMLElement;
-    toggle.parentNode?.replaceChild(newToggle, toggle);
-
-    // Use touchend for iOS (fires faster than click) with click fallback
-    let touchHandled = false;
-
-    newToggle.addEventListener('touchend', (e) => {
+    // Touch + click handling for iOS
+    let didTouch = false;
+    toggle.addEventListener('touchstart', function(e) {
       e.preventDefault();
-      touchHandled = true;
-      handleToggle(e);
+      didTouch = true;
+      doToggle();
     }, { passive: false });
 
-    newToggle.addEventListener('click', (e) => {
-      // Skip if already handled by touchend
-      if (touchHandled) {
-        touchHandled = false;
-        return;
-      }
-      handleToggle(e);
+    toggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (didTouch) { didTouch = false; return; }
+      doToggle();
     });
 
-    // Close on link click
-    menu.querySelectorAll('a').forEach((a) => {
-      a.addEventListener('click', () => {
-        if (open) closeMenu();
+    // Close when tapping a nav link
+    menu.querySelectorAll('a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        close();
       });
     });
 
-    // Scroll behavior — solid bg after scroll
-    let scrolled = false;
-    const onScroll = () => {
-      const isScrolled = window.scrollY > 40;
-      if (isScrolled !== scrolled) {
-        scrolled = isScrolled;
-        header.classList.toggle('bg-black/90', scrolled);
-        header.classList.toggle('backdrop-blur-md', scrolled);
-        header.classList.toggle('shadow-[0_1px_0_rgba(255,255,255,0.05)]', scrolled);
+    // Scroll behavior for header background
+    let wasScrolled = false;
+    function checkScroll() {
+      const scrolled = window.scrollY > 40;
+      if (scrolled !== wasScrolled) {
+        wasScrolled = scrolled;
+        if (scrolled) {
+          header.style.background = 'rgba(0,0,0,0.9)';
+          header.style.backdropFilter = 'blur(12px)';
+          header.style.webkitBackdropFilter = 'blur(12px)';
+          header.style.boxShadow = '0 1px 0 rgba(255,255,255,0.05)';
+        } else {
+          header.style.background = '';
+          header.style.backdropFilter = '';
+          header.style.webkitBackdropFilter = '';
+          header.style.boxShadow = '';
+        }
       }
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
+    }
+    window.addEventListener('scroll', checkScroll, { passive: true });
+    checkScroll();
   }
 
-  // Run on load + after view transitions
-  initMobileMenu();
-  document.addEventListener('astro:after-swap', initMobileMenu);
+  // Ensure clean setup on every page load / view transition
+  setupMenu();
+  document.addEventListener('astro:after-swap', setupMenu);
+  document.addEventListener('astro:page-load', setupMenu);
 </script>
