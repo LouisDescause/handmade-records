@@ -1,0 +1,104 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Button from '../../components/ui/Button.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const releases = await getCollection('releases');
+  return releases.map((release) => ({
+    params: { slug: release.id },
+    props: { release },
+  }));
+}
+
+const { release } = Astro.props;
+const { Content } = await render(release);
+---
+
+<PageLayout title={`${release.data.title} — ${release.data.artist}`} description={`${release.data.title} by ${release.data.artist}`}>
+
+  <section class="bg-black pt-40 pb-20 md:pt-48 md:pb-28">
+    <div class="mx-auto max-w-[1280px] px-6">
+      <a href="/releases" class="inline-flex items-center gap-1 font-mono text-[12px] uppercase tracking-[0.12em] text-white/30 transition-colors hover:text-white/60 mb-8">
+        <span>&#8592;</span> All Releases
+      </a>
+      <p class="font-mono text-[12px] uppercase tracking-[0.15em] text-chartreuse/50">
+        {release.data.type} &middot; {new Date(release.data.release_date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+      </p>
+      <h1 class="mt-3 font-sans text-[clamp(2.5rem,6vw,5rem)] font-bold leading-[0.9] tracking-tight text-white">
+        {release.data.title}
+      </h1>
+      <p class="mt-4 text-lg text-white/60">
+        {release.data.artist_slug ? (
+          <a href={`/artists/${release.data.artist_slug}`} class="transition-colors hover:text-chartreuse">{release.data.artist}</a>
+        ) : (
+          <span>{release.data.artist}</span>
+        )}
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-white py-24 md:py-32">
+    <div class="mx-auto max-w-[1280px] px-6">
+      <div class="grid gap-16 lg:grid-cols-[400px_1fr]">
+        <!-- Cover Art -->
+        <div class="aspect-square overflow-hidden">
+          <img src={release.data.cover} alt={release.data.title} class="h-full w-full object-cover" />
+        </div>
+
+        <div class="space-y-12">
+          <!-- Description -->
+          <div class="prose max-w-none text-black/70">
+            <Content />
+          </div>
+
+          <!-- Tracklist -->
+          {release.data.tracklist && release.data.tracklist.length > 0 && (
+            <div>
+              <h3 class="font-mono text-[12px] uppercase tracking-[0.15em] text-black/40 mb-4">Tracklist</h3>
+              <ol class="space-y-0 border-t border-black/10">
+                {release.data.tracklist.map((track) => (
+                  <li class="flex items-baseline justify-between border-b border-black/10 py-3">
+                    <span class="text-base text-black">
+                      <span class="mr-3 font-mono text-xs text-black/30">{String(track.number).padStart(2, '0')}</span>
+                      {track.title}
+                      {track.featured && <span class="ml-2 text-sm text-black/40">feat. {track.featured}</span>}
+                    </span>
+                    {track.duration && (
+                      <span class="font-mono text-xs text-black/30">{track.duration}</span>
+                    )}
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )}
+
+          <!-- Streaming Links -->
+          {release.data.streaming && (
+            <div>
+              <h3 class="font-mono text-[12px] uppercase tracking-[0.15em] text-black/40 mb-4">Listen</h3>
+              <div class="flex flex-wrap gap-3">
+                {release.data.streaming.spotify && (
+                  <a href={release.data.streaming.spotify} target="_blank" rel="noopener" class="inline-flex items-center gap-2 border border-black/10 px-4 py-2 font-mono text-[13px] uppercase tracking-[0.1em] text-black/60 transition-colors hover:border-black hover:text-black">Spotify</a>
+                )}
+                {release.data.streaming.apple_music && (
+                  <a href={release.data.streaming.apple_music} target="_blank" rel="noopener" class="inline-flex items-center gap-2 border border-black/10 px-4 py-2 font-mono text-[13px] uppercase tracking-[0.1em] text-black/60 transition-colors hover:border-black hover:text-black">Apple Music</a>
+                )}
+                {release.data.streaming.bandcamp && (
+                  <a href={release.data.streaming.bandcamp} target="_blank" rel="noopener" class="inline-flex items-center gap-2 border border-black/10 px-4 py-2 font-mono text-[13px] uppercase tracking-[0.1em] text-black/60 transition-colors hover:border-black hover:text-black">Bandcamp</a>
+                )}
+              </div>
+            </div>
+          )}
+
+          {release.data.catalog_number && (
+            <p class="font-mono text-[12px] uppercase tracking-[0.12em] text-black/30">
+              Catalog: {release.data.catalog_number}
+            </p>
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
+
+</PageLayout>

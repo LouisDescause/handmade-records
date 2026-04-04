@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "handmade-dev",
+      "runtimeExecutable": "/Users/louisdescause/.bun/bin/bunx",
+      "runtimeArgs": ["astro", "dev", "--port", "4321"],
+      "port": 4321
+    }
+  ]
+}

@@ -1,0 +1,358 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const artists = await getCollection('artists');
+  return artists.map((artist) => ({
+    params: { slug: artist.id },
+    props: { artist },
+  }));
+}
+
+const { artist } = Astro.props;
+const { Content } = await render(artist);
+
+const allReleases = await getCollection('releases');
+const artistReleases = allReleases
+  .filter((r) => r.data.artist_slug === artist.id)
+  .sort((a, b) => new Date(b.data.release_date).getTime() - new Date(a.data.release_date).getTime());
+---
+
+<PageLayout title={artist.data.name} description={artist.data.bio_short}>
+
+  <!-- Hero with large photo + cursor glow -->
+  <section class="relative bg-black overflow-hidden" id="artist-hero">
+    <div class="relative h-[60vh] min-h-[400px] max-h-[800px] md:h-[70vh] md:min-h-[500px]">
+      <img src={artist.data.photo} alt={artist.data.name} class="absolute inset-0 h-full w-full object-cover object-[center_70%] opacity-80" />
+      <div id="hero-glow" class="absolute inset-0 pointer-events-none opacity-0 transition-opacity duration-700" />
+      <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+      <div class="absolute bottom-0 left-0 right-0 pb-10 md:pb-14">
+        <div class="mx-auto max-w-[1280px] px-6">
+          <a href="/artists" class="inline-flex items-center gap-1 font-mono text-[12px] uppercase tracking-[0.12em] text-white/40 transition-colors hover:text-white/60 mb-5">
+            <span>&#8592;</span> All Artists
+          </a>
+          <p class="font-mono text-[12px] uppercase tracking-[0.15em] text-chartreuse">
+            {artist.data.genres.join(' / ')}
+          </p>
+          <h1 class="mt-2 font-sans text-[clamp(3rem,8vw,7rem)] font-bold leading-[0.85] tracking-tight text-white">
+            {artist.data.name}
+          </h1>
+          {artist.data.location && (
+            <p class="mt-3 font-mono text-xs text-white/50">{artist.data.location}</p>
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const hero = document.getElementById('artist-hero');
+    const glow = document.getElementById('hero-glow');
+    if (hero && glow) {
+      let targetX = 0, targetY = 0, currentX = 0, currentY = 0;
+      let active = false;
+      let rafId = 0;
+
+      hero.addEventListener('mouseenter', () => {
+        active = true;
+        glow.style.opacity = '1';
+        if (!rafId) tick();
+      });
+
+      hero.addEventListener('mouseleave', () => {
+        active = false;
+        glow.style.opacity = '0';
+      });
+
+      hero.addEventListener('mousemove', (e: MouseEvent) => {
+        const rect = hero.getBoundingClientRect();
+        targetX = ((e.clientX - rect.left) / rect.width) * 100;
+        targetY = ((e.clientY - rect.top) / rect.height) * 100;
+      });
+
+      function tick() {
+        currentX += (targetX - currentX) * 0.08;
+        currentY += (targetY - currentY) * 0.08;
+        glow.style.background = `radial-gradient(600px circle at ${currentX}% ${currentY}%, rgba(231,252,186,0.15), rgba(231,252,186,0.05) 40%, transparent 70%)`;
+        if (active || Math.abs(targetX - currentX) > 0.1) {
+          rafId = requestAnimationFrame(tick);
+        } else {
+          rafId = 0;
+        }
+      }
+    }
+  </script>
+
+
+  <!-- Bio + Links -->
+  <section class="bg-black py-10 md:py-14">
+    <div class="mx-auto max-w-[720px] px-6 text-center">
+      <p class="font-mono text-[12px] uppercase tracking-[0.15em] text-white/30 mb-3">About</p>
+      <div id="bio-text" class="prose prose-base prose-invert mx-auto text-white/70 [&>p:first-child]:text-lg [&>p:first-child]:text-white/80 [&>p:first-child]:leading-relaxed [&>p]:mb-3">
+        <Content />
+      </div>
+
+      {artist.data.social && (
+        <div class="mt-8 flex flex-wrap justify-center gap-2.5">
+          {artist.data.social.spotify && (
+            <a href={artist.data.social.spotify} target="_blank" rel="noopener" class="inline-flex items-center border border-white/12 px-4 py-2 font-mono text-[13px] uppercase tracking-[0.1em] text-white/50 transition-all hover:border-chartreuse hover:text-chartreuse">Spotify</a>
+          )}
+          {artist.data.social.apple_music && (
+            <a href={artist.data.social.apple_music} target="_blank" rel="noopener" class="inline-flex items-center border border-white/12 px-4 py-2 font-mono text-[13px] uppercase tracking-[0.1em] text-white/50 transition-all hover:border-chartreuse hover:text-chartreuse">Apple Music</a>
+          )}
+          {artist.data.social.youtube && (
+            <a href={artist.data.social.youtube} target="_blank" rel="noopener" class="inline-flex items-center border border-white/12 px-4 py-2 font-mono text-[13px] uppercase tracking-[0.1em] text-white/50 transition-all hover:border-chartreuse hover:text-chartreuse">YouTube</a>
+          )}
+          {artist.data.social.instagram && (
+            <a href={artist.data.social.instagram} target="_blank" rel="noopener" class="inline-flex items-center border border-white/12 px-4 py-2 font-mono text-[13px] uppercase tracking-[0.1em] text-white/50 transition-all hover:border-chartreuse hover:text-chartreuse">Instagram</a>
+          )}
+          {artist.data.social.tiktok && (
+            <a href={artist.data.social.tiktok} target="_blank" rel="noopener" class="inline-flex items-center border border-white/12 px-4 py-2 font-mono text-[13px] uppercase tracking-[0.1em] text-white/50 transition-all hover:border-chartreuse hover:text-chartreuse">TikTok</a>
+          )}
+          {artist.data.social.website && (
+            <a href={artist.data.social.website} target="_blank" rel="noopener" class="inline-flex items-center border border-white/12 px-4 py-2 font-mono text-[13px] uppercase tracking-[0.1em] text-white/50 transition-all hover:border-chartreuse hover:text-chartreuse">Website</a>
+          )}
+        </div>
+      )}
+    </div>
+  </section>
+
+  <script>
+    const bio = document.getElementById('bio-text');
+    if (bio) {
+      // Wrap each word in a span for hover targeting
+      const paragraphs = bio.querySelectorAll('p');
+      paragraphs.forEach((p) => {
+        const nodes: Node[] = [];
+        p.childNodes.forEach((node) => {
+          if (node.nodeType === Node.TEXT_NODE) {
+            const words = node.textContent!.split(/(\s+)/);
+            words.forEach((word) => {
+              if (/^\s+$/.test(word)) {
+                nodes.push(document.createTextNode(word));
+              } else if (word) {
+                const span = document.createElement('span');
+                span.textContent = word;
+                span.className = 'bio-word';
+                nodes.push(span);
+              }
+            });
+          } else {
+            // preserve existing elements like <em>
+            const el = node as HTMLElement;
+            if (el.tagName === 'EM' || el.tagName === 'STRONG') {
+              const words = el.textContent!.split(/(\s+)/);
+              words.forEach((word) => {
+                if (/^\s+$/.test(word)) {
+                  nodes.push(document.createTextNode(word));
+                } else if (word) {
+                  const span = document.createElement('span');
+                  span.textContent = word;
+                  span.className = 'bio-word';
+                  if (el.tagName === 'EM') span.style.fontStyle = 'italic';
+                  if (el.tagName === 'STRONG') span.style.fontWeight = 'bold';
+                  nodes.push(span);
+                }
+              });
+            } else {
+              nodes.push(node.cloneNode(true));
+            }
+          }
+        });
+        p.innerHTML = '';
+        nodes.forEach((n) => p.appendChild(n));
+      });
+
+      // Proximity-based highlight: words near cursor glow chartreuse
+      bio.addEventListener('mousemove', (e: MouseEvent) => {
+        const words = bio.querySelectorAll('.bio-word') as NodeListOf<HTMLElement>;
+        words.forEach((word) => {
+          const rect = word.getBoundingClientRect();
+          const cx = rect.left + rect.width / 2;
+          const cy = rect.top + rect.height / 2;
+          const dist = Math.sqrt((e.clientX - cx) ** 2 + (e.clientY - cy) ** 2);
+          const radius = 120;
+          if (dist < radius) {
+            const intensity = 1 - dist / radius;
+            word.style.color = `rgba(231, 252, 186, ${0.3 + intensity * 0.7})`;
+            word.style.transform = `translateY(${-intensity * 2}px)`;
+          } else {
+            word.style.color = '';
+            word.style.transform = '';
+          }
+        });
+      });
+
+      bio.addEventListener('mouseleave', () => {
+        const words = bio.querySelectorAll('.bio-word') as NodeListOf<HTMLElement>;
+        words.forEach((word) => {
+          word.style.color = '';
+          word.style.transform = '';
+        });
+      });
+    }
+  </script>
+
+  <style>
+    .bio-word {
+      display: inline-block;
+      transition: color 0.25s ease, transform 0.25s ease;
+    }
+  </style>
+
+  <!-- Discography — horizontal scroll with arrows + auto-scroll -->
+  {artistReleases.length > 0 && (
+    <section class="border-t border-white/10 bg-neutral-950 py-10 md:py-14 overflow-hidden">
+      <div class="mx-auto max-w-[1280px] px-6 mb-6 flex items-end justify-between">
+        <div>
+          <p class="font-mono text-[12px] uppercase tracking-[0.15em] text-white/40">Discography</p>
+          <h2 class="mt-1 font-sans text-2xl font-bold tracking-tight text-white">Releases</h2>
+        </div>
+        <div class="flex gap-2">
+          <button id="scroll-left" class="w-9 h-9 flex items-center justify-center border border-white/15 text-white/40 hover:border-chartreuse hover:text-chartreuse transition-colors" aria-label="Scroll left">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button id="scroll-right" class="w-9 h-9 flex items-center justify-center border border-white/15 text-white/40 hover:border-chartreuse hover:text-chartreuse transition-colors" aria-label="Scroll right">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="releases-scroll-wrapper relative select-none" id="releases-scroll">
+        <div class="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-neutral-950 to-transparent z-10 pointer-events-none" />
+        <div class="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-neutral-950 to-transparent z-10 pointer-events-none" />
+
+        <div class="releases-track flex gap-5 px-6 cursor-grab active:cursor-grabbing" id="releases-track">
+          {artistReleases.map((release) => (
+            <a href={`/releases/${release.id}`} class="group flex-shrink-0 w-[200px]" draggable="false">
+              <div class="aspect-square overflow-hidden bg-white/5 rounded-sm">
+                <img src={release.data.cover} alt={release.data.title} class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.05] pointer-events-none" draggable="false" />
+              </div>
+              <div class="mt-2.5">
+                <p class="font-mono text-[13px] uppercase tracking-[0.1em] text-white/35">
+                  {release.data.type} &middot; {new Date(release.data.release_date).toLocaleDateString('en-US', { year: 'numeric', month: 'short' })}
+                </p>
+                <h3 class="mt-0.5 font-sans text-sm font-bold text-white leading-tight">{release.data.title}</h3>
+              </div>
+            </a>
+          ))}
+          {artistReleases.map((release) => (
+            <a href={`/releases/${release.id}`} class="group flex-shrink-0 w-[200px]" aria-hidden="true" draggable="false">
+              <div class="aspect-square overflow-hidden bg-white/5 rounded-sm">
+                <img src={release.data.cover} alt={release.data.title} class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.05] pointer-events-none" draggable="false" />
+              </div>
+              <div class="mt-2.5">
+                <p class="font-mono text-[13px] uppercase tracking-[0.1em] text-white/35">
+                  {release.data.type} &middot; {new Date(release.data.release_date).toLocaleDateString('en-US', { year: 'numeric', month: 'short' })}
+                </p>
+                <h3 class="mt-0.5 font-sans text-sm font-bold text-white leading-tight">{release.data.title}</h3>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <script>
+    const track = document.getElementById('releases-track');
+    const wrapper = document.getElementById('releases-scroll');
+    const btnLeft = document.getElementById('scroll-left');
+    const btnRight = document.getElementById('scroll-right');
+
+    if (track && wrapper) {
+      let scrollPos = 0;
+      let autoSpeed = 0.4;
+      let paused = false;
+      let manualHalt = false;
+      let haltTimer = 0;
+
+      const itemWidth = 200 + 20; // w-[200px] + gap-5
+      const items = track.querySelectorAll('a:not([aria-hidden])');
+      const setWidth = items.length * itemWidth;
+
+      // --- Auto scroll ---
+      function autoScroll() {
+        if (!paused && !manualHalt) {
+          scrollPos += autoSpeed;
+          if (scrollPos >= setWidth) scrollPos -= setWidth;
+          if (scrollPos < 0) scrollPos += setWidth;
+          track.style.transform = `translateX(-${scrollPos}px)`;
+        }
+        requestAnimationFrame(autoScroll);
+      }
+      autoScroll();
+
+      // Pause on hover
+      wrapper.addEventListener('mouseenter', () => { paused = true; });
+      wrapper.addEventListener('mouseleave', () => { paused = false; });
+
+      // --- Arrow buttons ---
+      function arrowScroll(dir: number) {
+        manualHalt = true;
+        clearTimeout(haltTimer);
+        const jump = itemWidth * 2;
+        const target = scrollPos + dir * jump;
+        const start = scrollPos;
+        const duration = 400;
+        const startTime = performance.now();
+
+        function ease(t: number) {
+          return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        }
+
+        function step(now: number) {
+          const t = Math.min((now - startTime) / duration, 1);
+          scrollPos = start + (target - start) * ease(t);
+          if (scrollPos >= setWidth) scrollPos -= setWidth;
+          if (scrollPos < 0) scrollPos += setWidth;
+          track.style.transform = `translateX(-${scrollPos}px)`;
+          if (t < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+
+        haltTimer = window.setTimeout(() => { manualHalt = false; }, 3000);
+      }
+
+      btnLeft?.addEventListener('click', () => arrowScroll(-1));
+      btnRight?.addEventListener('click', () => arrowScroll(1));
+
+      // --- Drag to scroll ---
+      let isDragging = false;
+      let dragStartX = 0;
+      let dragStartScroll = 0;
+      let dragDelta = 0;
+
+      wrapper.addEventListener('mousedown', (e: MouseEvent) => {
+        isDragging = true;
+        dragStartX = e.clientX;
+        dragStartScroll = scrollPos;
+        dragDelta = 0;
+        manualHalt = true;
+        clearTimeout(haltTimer);
+      });
+
+      window.addEventListener('mousemove', (e: MouseEvent) => {
+        if (!isDragging) return;
+        dragDelta = dragStartX - e.clientX;
+        scrollPos = dragStartScroll + dragDelta;
+        if (scrollPos >= setWidth) scrollPos -= setWidth;
+        if (scrollPos < 0) scrollPos += setWidth;
+        track.style.transform = `translateX(-${scrollPos}px)`;
+      });
+
+      window.addEventListener('mouseup', () => {
+        if (!isDragging) return;
+        isDragging = false;
+        haltTimer = window.setTimeout(() => { manualHalt = false; }, 3000);
+      });
+
+      // Prevent click navigation after drag
+      wrapper.addEventListener('click', (e: MouseEvent) => {
+        if (Math.abs(dragDelta) > 5) e.preventDefault();
+      }, true);
+    }
+  </script>
+
+</PageLayout>

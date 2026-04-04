@@ -1,0 +1,42 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-black text-white border-t border-white/[0.04]">
+  <div class="mx-auto max-w-[1280px] px-6 py-16">
+    <div class="grid gap-12 md:grid-cols-3">
+      <!-- Logo -->
+      <div>
+        <img src="/images/logos/stacked-lockup-chartreuse.svg" alt="Handmade Records" class="h-24 md:h-28" />
+      </div>
+
+      <!-- Navigation -->
+      <div>
+        <h3 class="mb-4 font-mono text-xs uppercase tracking-[0.12em] text-chartreuse">Navigate</h3>
+        <ul class="space-y-2">
+          {['About', 'Artists', 'Releases', 'Events', 'Contact'].map((link) => (
+            <li>
+              <a href={`/${link.toLowerCase()}`} class="text-sm text-white/80 transition-colors hover:text-chartreuse">
+                {link}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Social + Contact -->
+      <div>
+        <h3 class="mb-4 font-mono text-xs uppercase tracking-[0.12em] text-chartreuse">Connect</h3>
+        <ul class="space-y-2">
+          <li><a href="https://instagram.com/handmaderecords" target="_blank" rel="noopener" class="text-sm text-white/80 transition-colors hover:text-chartreuse">Instagram</a></li>
+<li><a href="mailto:friends@handmaderecords.co" class="text-sm text-white/80 transition-colors hover:text-chartreuse">friends@handmaderecords.co</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="mt-12 border-t border-white/10 pt-6 text-center">
+      <p class="text-xs text-white/40">&copy; {currentYear} Handmade Records. All rights reserved.</p>
+    </div>
+  </div>
+</footer>

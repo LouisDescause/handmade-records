@@ -1,0 +1,26 @@
+---
+interface Props {
+  tag: string;
+  heading: string;
+  align?: 'left' | 'center';
+  light?: boolean;
+}
+
+const { tag, heading, align = 'left', light = false } = Astro.props;
+---
+
+<div class:list={[align === 'center' && 'text-center']}>
+  <span class:list={[
+    'mb-3 block font-mono text-xs uppercase tracking-[0.12em]',
+    light ? 'text-chartreuse' : 'text-black/50',
+  ]}>
+    {tag}
+  </span>
+  <h2 class:list={[
+    'font-sans font-bold leading-[0.95] tracking-tight',
+    'text-[clamp(2rem,4vw,3.5rem)]',
+    light ? 'text-white' : 'text-black',
+  ]}>
+    {heading}
+  </h2>
+</div>

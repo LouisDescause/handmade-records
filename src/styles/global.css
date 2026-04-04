@@ -1,0 +1,163 @@
+@import './fonts.css';
+@import 'tailwindcss';
+
+@theme {
+  /* Colors */
+  --color-chartreuse: #E7FCBA;
+  --color-clay: #C4B391;
+  --color-sand: #FAECDB;
+
+  /* Fonts */
+  --font-sans: 'ABC Diatype', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'BB Manual Mono', ui-monospace, monospace;
+
+  /* Animations */
+  --animate-fade-in: fade-in 0.6s ease-out forwards;
+  --animate-slide-up: slide-up 0.4s ease-out forwards;
+
+  @keyframes fade-in {
+    0% { opacity: 0; transform: translateY(12px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slide-up {
+    0% { transform: translateY(100%); }
+    100% { transform: translateY(0); }
+  }
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    color: #fff;
+    background: #000;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: #E7FCBA;
+    color: #000;
+  }
+
+  /* Smooth scroll on iOS */
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+}
+
+/* ============================================
+   BUBBLE ZOOM HOVER EFFECT
+   Circular clip-path that expands to reveal
+   a zoomed-in version of the image
+   ============================================ */
+.img-bubble-zoom {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.img-bubble-zoom img {
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.img-bubble-zoom::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(231, 252, 186, 0.08) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.img-bubble-zoom:hover img {
+  transform: scale(1.08);
+}
+
+.img-bubble-zoom:hover::after {
+  opacity: 1;
+}
+
+/* ============================================
+   VIEW TRANSITIONS — smooth page-to-page
+   ============================================ */
+
+/* Fade + slide for main content */
+::view-transition-old(root) {
+  animation: page-fade-out 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+::view-transition-new(root) {
+  animation: page-fade-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes page-fade-out {
+  0% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-8px); }
+}
+
+@keyframes page-fade-in {
+  0% { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================
+   SCROLL-TRIGGERED ENTRANCE ANIMATIONS
+   Elements fade in as they enter the viewport
+   ============================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+
+/* ============================================
+   SMOOTH LINK HOVERS — underline slide-in
+   ============================================ */
+.link-slide {
+  position: relative;
+  display: inline-block;
+}
+
+.link-slide::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.link-slide:hover::after {
+  width: 100%;
+}

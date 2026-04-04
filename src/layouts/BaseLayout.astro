@@ -1,0 +1,87 @@
+---
+import { ClientRouter } from 'astro:transitions';
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const { title, description = 'LA-based independent record label. Fostering Greatness.', ogImage = '/images/social/og-image.png' } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://handmaderecords.com');
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title} | Handmade Records</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={`${title} | Handmade Records`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Preload critical fonts -->
+    <link rel="preload" href="/fonts/ABCDiatype-Bold.ttf" as="font" type="font/truetype" crossorigin />
+    <link rel="preload" href="/fonts/ABCDiatype-Regular.ttf" as="font" type="font/truetype" crossorigin />
+    <link rel="preload" href="/fonts/BBManualMonoProTX-Medium.otf" as="font" type="font/opentype" crossorigin />
+
+    <!-- Smooth page transitions -->
+    <ClientRouter />
+
+    <style is:global>
+      @import '../styles/global.css';
+    </style>
+  </head>
+  <body>
+    <slot />
+    <script>
+      // Global scroll reveal observer — runs on all pages
+      function initGlobalReveals() {
+        const reveals = document.querySelectorAll('.reveal:not(.is-visible)');
+        if (reveals.length === 0) return;
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const el = entry.target as HTMLElement;
+              // Respect any inline transition-delay
+              el.classList.add('is-visible');
+              observer.unobserve(el);
+            }
+          });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        reveals.forEach((el) => observer.observe(el));
+      }
+
+      // Smooth scroll to anchor links
+      document.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        const anchor = target.closest('a[href^="#"]');
+        if (anchor) {
+          const id = anchor.getAttribute('href')!.slice(1);
+          const el = document.getElementById(id);
+          if (el) {
+            e.preventDefault();
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      });
+
+      initGlobalReveals();
+      document.addEventListener('astro:after-swap', initGlobalReveals);
+    </script>
+  </body>
+</html>

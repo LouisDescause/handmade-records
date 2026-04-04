@@ -1,0 +1,144 @@
+---
+const navLinks = [
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+  { label: 'Artists', href: '/artists' },
+  { label: 'Releases', href: '/releases' },
+  { label: 'Events', href: '/events' },
+  { label: 'Contact', href: '/contact' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header id="site-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500" transition:persist>
+  <nav class="mx-auto flex max-w-[1440px] items-center justify-between px-8 py-6 md:px-10 md:py-7">
+    <!-- Logo -->
+    <a href="/" class="relative z-10">
+      <img
+        src="/images/logos/wordmark-chartreuse.svg"
+        alt="Handmade Records"
+        class="h-5 md:h-7 header-logo transition-opacity duration-300"
+      />
+    </a>
+
+    <!-- Desktop Nav -->
+    <ul class="hidden items-center gap-10 md:flex">
+      {navLinks.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            class:list={[
+              'font-mono text-[13px] uppercase tracking-[0.12em] transition-colors duration-200',
+              (link.href === '/' ? currentPath === '/' : currentPath.startsWith(link.href))
+                ? 'text-chartreuse'
+                : 'text-white/70 hover:text-chartreuse',
+            ]}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <!-- Mobile Menu Button -->
+    <button
+      id="menu-toggle"
+      class="relative z-10 flex h-10 w-10 items-center justify-center md:hidden"
+      aria-label="Open menu"
+      aria-expanded="false"
+    >
+      <div class="menu-icon space-y-1.5">
+        <span class="block h-[2px] w-6 bg-chartreuse transition-all duration-300"></span>
+        <span class="block h-[2px] w-6 bg-chartreuse transition-all duration-300"></span>
+      </div>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu Overlay -->
+  <div id="mobile-menu" class="fixed inset-0 z-40 flex flex-col items-center justify-center bg-black/[0.98] transition-all duration-500 opacity-0 pointer-events-none" style="backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);">
+    <ul class="flex flex-col items-center gap-6">
+      {navLinks.map((link, i) => (
+        <li class="mobile-link" style={`transition-delay: ${i * 60}ms`}>
+          <a
+            href={link.href}
+            class="font-sans text-3xl font-bold text-chartreuse transition-all duration-300 hover:text-white active:scale-95"
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+    <div class="mt-12 mobile-link" style="transition-delay: 360ms">
+      <a href="mailto:friends@handmaderecords.co" class="font-mono text-[12px] uppercase tracking-[0.15em] text-white/30 transition-colors hover:text-chartreuse">
+        friends@handmaderecords.co
+      </a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .mobile-link {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .menu-open .mobile-link {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+
+<script>
+  const header = document.getElementById('site-header')!;
+  const toggle = document.getElementById('menu-toggle')!;
+  const menu = document.getElementById('mobile-menu')!;
+  const menuIcon = toggle.querySelector('.menu-icon')!;
+  const spans = menuIcon.querySelectorAll('span');
+  let open = false;
+
+  function openMenu() {
+    open = true;
+    menu.classList.remove('opacity-0', 'pointer-events-none');
+    menu.classList.add('opacity-100', 'pointer-events-auto', 'menu-open');
+    toggle.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+    spans[0].style.transform = 'rotate(45deg) translate(2px, 2px)';
+    spans[1].style.transform = 'rotate(-45deg) translate(2px, -2px)';
+  }
+
+  function closeMenu() {
+    open = false;
+    menu.classList.remove('opacity-100', 'pointer-events-auto', 'menu-open');
+    menu.classList.add('opacity-0', 'pointer-events-none');
+    toggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+    spans[0].style.transform = '';
+    spans[1].style.transform = '';
+  }
+
+  toggle.addEventListener('click', () => {
+    if (open) closeMenu();
+    else openMenu();
+  });
+
+  // Close on link click
+  menu.querySelectorAll('a').forEach((a) => {
+    a.addEventListener('click', () => closeMenu());
+  });
+
+  // Scroll behavior — solid bg after scroll
+  let scrolled = false;
+  const onScroll = () => {
+    const isScrolled = window.scrollY > 40;
+    if (isScrolled !== scrolled) {
+      scrolled = isScrolled;
+      header.classList.toggle('bg-black/90', scrolled);
+      header.classList.toggle('backdrop-blur-md', scrolled);
+      header.classList.toggle('shadow-[0_1px_0_rgba(255,255,255,0.05)]', scrolled);
+    }
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>

@@ -1,0 +1,25 @@
+---
+interface Props {
+  position?: 'top' | 'bottom';
+  fill?: string;
+}
+
+const { position = 'top', fill = '#ffffff' } = Astro.props;
+---
+
+<div
+  class:list={[
+    'relative w-full overflow-hidden leading-[0]',
+    position === 'bottom' && 'rotate-180',
+  ]}
+  aria-hidden="true"
+>
+  <svg
+    viewBox="0 0 1440 60"
+    preserveAspectRatio="none"
+    class="block h-[40px] w-full md:h-[60px]"
+    fill={fill}
+  >
+    <path d="M0,60 L0,25 Q30,28 60,22 T120,26 T180,18 T240,24 T300,20 T360,28 T420,16 T480,24 T540,20 T600,27 T660,19 T720,25 T780,17 T840,26 T900,21 T960,28 T1020,18 T1080,24 T1140,20 T1200,27 T1260,22 T1320,26 T1380,19 T1440,24 L1440,60 Z" />
+  </svg>
+</div>
