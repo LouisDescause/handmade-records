@@ -26,27 +26,53 @@ const featuredArtists = allArtists
     </div>
   </section>
 
-  <!-- ABOUT — editorial style, not corporate -->
+  <!-- ABOUT — who we are -->
   <section class="relative bg-black py-24 md:py-32 lg:py-40 overflow-hidden">
+    <!-- Dimmed background photo -->
+    <img
+      src="/images/about/handmade-live-bg.jpg"
+      alt=""
+      class="absolute inset-0 h-full w-full object-cover opacity-[0.08]"
+      aria-hidden="true"
+    />
+    <div class="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black"></div>
     <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-chartreuse/15 to-transparent"></div>
 
-    <div class="mx-auto max-w-[1080px] px-6">
-      <!-- Big editorial statement -->
-      <div class="reveal mx-auto max-w-[800px]">
+    <div class="relative mx-auto max-w-[1080px] px-6">
+      <!-- Centered intro -->
+      <div class="reveal mx-auto max-w-[640px] text-center">
         <p class="font-mono text-[12px] uppercase tracking-[0.25em] text-chartreuse/40">About Us</p>
-        <h2 class="mt-6 font-sans text-[clamp(2rem,4.5vw,3.5rem)] font-semibold leading-[1.05] tracking-tight text-white">
-          We started Handmade because we believed the best music comes from artists who are given the freedom to be themselves.
+        <h2 class="mt-4 font-sans text-[clamp(1.75rem,3.5vw,2.75rem)] font-semibold leading-[1.1] tracking-tight text-white">
+          An independent record label<br class="hidden sm:inline" /> built for artists.
         </h2>
-        <p class="mt-8 text-[17px] md:text-[19px] leading-relaxed text-white/50">
-          Founded in 2024 in Los Angeles. We work across Pop, Folk, Alternative, Indie, Rap, Hip Hop, R&B — and wherever the music takes us. No templates, no formulas. Just real people making real music.
+        <p class="mt-6 text-base leading-relaxed text-white/50">
+          Founded in 2024 in Los Angeles with a simple belief: the best music comes from artists who are given the freedom to be themselves. We work across Pop, Folk, Alternative, Indie, Rap, Hip Hop, R&B — and wherever the music takes us.
         </p>
       </div>
 
-      <!-- Three simple phrases instead of feature cards -->
-      <div class="mt-20 reveal flex flex-wrap justify-center gap-x-10 gap-y-4 md:gap-x-16">
-        <p class="font-mono text-[13px] md:text-[14px] uppercase tracking-[0.15em] text-white/25">Artist-first, always</p>
-        <p class="font-mono text-[13px] md:text-[14px] uppercase tracking-[0.15em] text-white/25">Creative freedom</p>
-        <p class="font-mono text-[13px] md:text-[14px] uppercase tracking-[0.15em] text-white/25">Community over clout</p>
+      <!-- Value cards -->
+      <div class="mt-20 grid gap-5 md:grid-cols-3">
+        <div class="reveal value-card group rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8 transition-all duration-500 backdrop-blur-sm" style="transition-delay: 0s">
+          <span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-chartreuse text-[13px] font-semibold text-black transition-transform duration-500 group-hover:scale-110 group-hover:rotate-[-4deg]">01</span>
+          <h3 class="mt-5 font-sans text-lg font-semibold text-white group-hover:text-chartreuse transition-colors duration-300">Artist-First</h3>
+          <p class="mt-2 text-[15px] leading-relaxed text-white/50 group-hover:text-white/70 transition-colors duration-300">
+            Every decision starts with what's best for the artist. Creative control stays where it belongs.
+          </p>
+        </div>
+        <div class="reveal value-card group rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8 transition-all duration-500 backdrop-blur-sm" style="transition-delay: 0.1s">
+          <span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-chartreuse text-[13px] font-semibold text-black transition-transform duration-500 group-hover:scale-110 group-hover:rotate-[-4deg]">02</span>
+          <h3 class="mt-5 font-sans text-lg font-semibold text-white group-hover:text-chartreuse transition-colors duration-300">Creative Freedom</h3>
+          <p class="mt-2 text-[15px] leading-relaxed text-white/50 group-hover:text-white/70 transition-colors duration-300">
+            We don't chase trends. We invest in artists with a distinct vision and give them space to realize it.
+          </p>
+        </div>
+        <div class="reveal value-card group rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8 transition-all duration-500 backdrop-blur-sm" style="transition-delay: 0.2s">
+          <span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-chartreuse text-[13px] font-semibold text-black transition-transform duration-500 group-hover:scale-110 group-hover:rotate-[-4deg]">03</span>
+          <h3 class="mt-5 font-sans text-lg font-semibold text-white group-hover:text-chartreuse transition-colors duration-300">Community</h3>
+          <p class="mt-2 text-[15px] leading-relaxed text-white/50 group-hover:text-white/70 transition-colors duration-300">
+            Live showcases and collaborative projects that build genuine connections between artists and audiences.
+          </p>
+        </div>
       </div>
     </div>
   </section>
@@ -152,6 +178,23 @@ const featuredArtists = allArtists
 </PageLayout>
 
 <style>
+  .value-card {
+    cursor: default;
+  }
+  .value-card:hover {
+    border-color: rgba(231, 252, 186, 0.15);
+    background: rgba(231, 252, 186, 0.04);
+    transform: translateY(-6px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(231, 252, 186, 0.08);
+  }
+  @media (max-width: 767px) {
+    .value-card:active {
+      border-color: rgba(231, 252, 186, 0.15);
+      background: rgba(231, 252, 186, 0.04);
+    }
+  }
+
   .reveal {
     opacity: 0;
     transform: translateY(30px);
@@ -162,7 +205,6 @@ const featuredArtists = allArtists
     opacity: 1;
     transform: translateY(0);
   }
-
 </style>
 
 <script>
