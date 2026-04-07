@@ -1,5 +1,6 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
+import Particles from '../../components/Particles.astro';
 import { getCollection } from 'astro:content';
 
 const allReleases = await getCollection('releases');
@@ -9,8 +10,9 @@ const releases = allReleases.sort((a, b) => new Date(b.data.release_date).getTim
 <PageLayout title="Releases" description="Explore the Handmade Records discography.">
 
   <!-- Header -->
-  <section class="bg-black pt-32 pb-6 md:pt-40 md:pb-8">
-    <div class="mx-auto max-w-[1280px] px-6 md:px-10">
+  <section class="relative bg-black pt-32 pb-6 md:pt-40 md:pb-8 overflow-hidden">
+    <Particles id="releases-particles" count={25} />
+    <div class="relative mx-auto max-w-[1280px] px-6 md:px-10" style="z-index: 2;">
       <p class="font-mono text-[12px] uppercase tracking-[0.25em] text-chartreuse/40">Discography</p>
       <h1 class="mt-1 font-sans text-[clamp(2rem,5vw,3.5rem)] font-bold leading-[0.9] tracking-tight text-white">
         Releases

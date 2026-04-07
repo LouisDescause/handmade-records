@@ -44,8 +44,19 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://handmade
     <style is:global>
       @import '../styles/global.css';
     </style>
+
+    <!-- Fallback: prevent flash of unstyled content during view transitions -->
+    <script is:inline>
+      document.documentElement.style.background = '#000';
+      document.documentElement.style.color = '#fff';
+    </script>
+    <noscript>
+      <style>
+        html { background: #000; color: #fff; }
+      </style>
+    </noscript>
   </head>
-  <body>
+  <body class="bg-black text-white">
     <slot />
     <script>
       // Global scroll reveal observer — runs on all pages

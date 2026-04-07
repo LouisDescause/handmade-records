@@ -1,5 +1,6 @@
 ---
 import PageLayout from '../../layouts/PageLayout.astro';
+import Particles from '../../components/Particles.astro';
 
 const showcases = [
   { num: 16, image: '/images/events/showcase-16.jpg', artists: 'Debbii Dawson, Amelie Kalia, Ellie Irwin', date: 'Mar 2026' },
@@ -26,6 +27,7 @@ const showcases = [
   <!-- Hero -->
   <section class="relative bg-black pt-28 pb-12 md:pt-36 md:pb-16 overflow-hidden">
     <div class="grain pointer-events-none absolute inset-0 z-0 opacity-[0.03]"></div>
+    <Particles id="events-hero-particles" count={30} />
     <div class="mx-auto max-w-[1280px] px-6 relative z-10">
       <p class="font-mono text-[12px] uppercase tracking-[0.25em] text-chartreuse/50 reveal">Live Events</p>
       <h1 class="mt-3 font-sans text-[clamp(2.5rem,7vw,5.5rem)] font-bold leading-[0.85] tracking-tight text-white reveal">

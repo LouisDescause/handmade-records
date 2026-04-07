@@ -1,5 +1,6 @@
 ---
 import PageLayout from '../layouts/PageLayout.astro';
+import Particles from '../components/Particles.astro';
 ---
 
 <PageLayout title="Contact" description="Get in touch with Handmade Records. Submit demos, business inquiries, and more.">
@@ -7,6 +8,7 @@ import PageLayout from '../layouts/PageLayout.astro';
   <!-- Hero -->
   <section class="relative bg-black pt-28 pb-12 md:pt-36 md:pb-16 overflow-hidden">
     <div class="grain pointer-events-none absolute inset-0 z-0 opacity-[0.03]"></div>
+    <Particles id="contact-particles" count={25} />
     <div class="mx-auto max-w-[1280px] px-6 relative z-10">
       <p class="font-mono text-[12px] uppercase tracking-[0.25em] text-chartreuse/50 reveal">Say Hello</p>
       <h1 class="mt-3 font-sans text-[clamp(2.5rem,7vw,5rem)] font-bold leading-[0.85] tracking-tight text-white reveal">
