@@ -10,29 +10,45 @@ const featuredArtists = allArtists
 
 <PageLayout title="Home">
 
-  <!-- HERO — clean, horizontal wordmark + tagline -->
-  <section class="flex min-h-screen items-center justify-center bg-black">
-    <div class="flex flex-col items-center px-6 text-center">
+  <!-- HERO -->
+  <section class="relative flex min-h-screen items-center justify-center overflow-hidden" style="background: #0a0a08;">
+    <!-- Warm radial glow behind logo -->
+    <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 70% 50% at 50% 55%, rgba(231,252,186,0.04) 0%, rgba(196,179,145,0.02) 40%, transparent 70%);"></div>
+    <!-- Subtle starburst decoration -->
+    <svg class="hero-starburst absolute opacity-[0.03]" style="width: 900px; height: 900px; top: 50%; left: 50%; transform: translate(-50%, -50%);" viewBox="0 0 400 400" fill="none">
+      {Array.from({length: 24}).map((_, i) => (
+        <line x1="200" y1="200" x2={200 + 180 * Math.cos(i * Math.PI / 12)} y2={200 + 180 * Math.sin(i * Math.PI / 12)} stroke="#E7FCBA" stroke-width="0.5" />
+      ))}
+      <circle cx="200" cy="200" r="120" stroke="#E7FCBA" stroke-width="0.3" />
+      <circle cx="200" cy="200" r="60" stroke="#E7FCBA" stroke-width="0.3" />
+    </svg>
+
+    <div class="relative flex flex-col items-center px-6 text-center">
       <img
         src="/images/logos/lockup-chartreuse.svg"
         alt="Handmade Records"
         class="w-[300px] md:w-[500px] lg:w-[680px] xl:w-[780px]"
         transition:name="hero-logo"
       />
+      <p class="mt-6 font-mono text-[12px] md:text-[13px] tracking-[0.25em] text-white/25 uppercase">Los Angeles</p>
       <!-- Scroll indicator -->
-      <div class="mt-12 animate-bounce">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-white/30 mx-auto"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      <div class="mt-14 animate-bounce">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-white/20 mx-auto"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
       </div>
     </div>
   </section>
 
-  <!-- ABOUT — who we are -->
-  <section class="relative bg-black py-24 md:py-32 lg:py-40 overflow-hidden">
-    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-chartreuse/15 to-transparent"></div>
+  <!-- ABOUT — warm & personal -->
+  <section class="relative py-24 md:py-32 lg:py-40 overflow-hidden" style="background: #0d0d0a;">
+    <!-- Warm texture overlay -->
+    <div class="absolute inset-0 pointer-events-none opacity-[0.015]" style="background-image: url('data:image/svg+xml,%3Csvg width=&quot;60&quot; height=&quot;60&quot; viewBox=&quot;0 0 60 60&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;%3E%3Cg fill=&quot;none&quot; fill-rule=&quot;evenodd&quot;%3E%3Cg fill=&quot;%23C4B391&quot; fill-opacity=&quot;1&quot;%3E%3Cpath d=&quot;M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z&quot;/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+    <!-- Top divider — warm instead of harsh -->
+    <div class="absolute top-0 left-0 right-0 h-px" style="background: linear-gradient(to right, transparent, rgba(196,179,145,0.15), transparent);"></div>
+
     <div class="mx-auto max-w-[1080px] px-6">
       <!-- Centered intro -->
       <div class="reveal mx-auto max-w-[640px] text-center">
-        <p class="font-mono text-[12px] uppercase tracking-[0.25em] text-chartreuse/40">About Us</p>
+        <p class="font-mono text-[12px] uppercase tracking-[0.25em]" style="color: rgba(196,179,145,0.5);">Who We Are</p>
         <h2 class="mt-4 font-sans text-[clamp(1.75rem,3.5vw,2.75rem)] font-semibold leading-[1.1] tracking-tight text-white">
           An independent record label<br class="hidden sm:inline" /> built for artists.
         </h2>
@@ -41,26 +57,38 @@ const featuredArtists = allArtists
         </p>
       </div>
 
-      <!-- Value cards -->
-      <div class="mt-20 grid gap-5 md:grid-cols-3">
-        <div class="reveal value-card group rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8 transition-all duration-500" style="transition-delay: 0s">
-          <span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-chartreuse text-[13px] font-semibold text-black transition-transform duration-500 group-hover:scale-110 group-hover:rotate-[-4deg]">01</span>
-          <h3 class="mt-5 font-sans text-lg font-semibold text-white group-hover:text-chartreuse transition-colors duration-300">Artist-First</h3>
-          <p class="mt-2 text-[15px] leading-relaxed text-white/50 group-hover:text-white/70 transition-colors duration-300">
+      <!-- Value cards — warm, less corporate -->
+      <div class="mt-20 grid gap-6 md:grid-cols-3">
+        <div class="reveal warm-card group rounded-2xl p-8 transition-all duration-500" style="transition-delay: 0s">
+          <div class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-full transition-transform duration-500 group-hover:scale-110" style="background: rgba(196,179,145,0.1); border: 1px solid rgba(196,179,145,0.12);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.5" class="transition-colors duration-300" style="stroke: #C4B391;">
+              <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+          </div>
+          <h3 class="font-sans text-lg font-semibold text-white group-hover:text-chartreuse transition-colors duration-300">Artist-First</h3>
+          <p class="mt-2 text-[15px] leading-relaxed text-white/45 group-hover:text-white/65 transition-colors duration-300">
             Every decision starts with what's best for the artist. Creative control stays where it belongs.
           </p>
         </div>
-        <div class="reveal value-card group rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8 transition-all duration-500" style="transition-delay: 0.1s">
-          <span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-chartreuse text-[13px] font-semibold text-black transition-transform duration-500 group-hover:scale-110 group-hover:rotate-[-4deg]">02</span>
-          <h3 class="mt-5 font-sans text-lg font-semibold text-white group-hover:text-chartreuse transition-colors duration-300">Creative Freedom</h3>
-          <p class="mt-2 text-[15px] leading-relaxed text-white/50 group-hover:text-white/70 transition-colors duration-300">
+        <div class="reveal warm-card group rounded-2xl p-8 transition-all duration-500" style="transition-delay: 0.1s">
+          <div class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-full transition-transform duration-500 group-hover:scale-110" style="background: rgba(196,179,145,0.1); border: 1px solid rgba(196,179,145,0.12);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.5" class="transition-colors duration-300" style="stroke: #C4B391;">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+          </div>
+          <h3 class="font-sans text-lg font-semibold text-white group-hover:text-chartreuse transition-colors duration-300">Creative Freedom</h3>
+          <p class="mt-2 text-[15px] leading-relaxed text-white/45 group-hover:text-white/65 transition-colors duration-300">
             We don't chase trends. We invest in artists with a distinct vision and give them space to realize it.
           </p>
         </div>
-        <div class="reveal value-card group rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8 transition-all duration-500" style="transition-delay: 0.2s">
-          <span class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-chartreuse text-[13px] font-semibold text-black transition-transform duration-500 group-hover:scale-110 group-hover:rotate-[-4deg]">03</span>
-          <h3 class="mt-5 font-sans text-lg font-semibold text-white group-hover:text-chartreuse transition-colors duration-300">Community</h3>
-          <p class="mt-2 text-[15px] leading-relaxed text-white/50 group-hover:text-white/70 transition-colors duration-300">
+        <div class="reveal warm-card group rounded-2xl p-8 transition-all duration-500" style="transition-delay: 0.2s">
+          <div class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-full transition-transform duration-500 group-hover:scale-110" style="background: rgba(196,179,145,0.1); border: 1px solid rgba(196,179,145,0.12);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke-width="1.5" class="transition-colors duration-300" style="stroke: #C4B391;">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <h3 class="font-sans text-lg font-semibold text-white group-hover:text-chartreuse transition-colors duration-300">Community</h3>
+          <p class="mt-2 text-[15px] leading-relaxed text-white/45 group-hover:text-white/65 transition-colors duration-300">
             Live showcases and collaborative projects that build genuine connections between artists and audiences.
           </p>
         </div>
@@ -69,11 +97,18 @@ const featuredArtists = allArtists
   </section>
 
   <!-- ROSTER — 3D fan cards -->
-  <section class="bg-black py-20 md:py-28 overflow-hidden">
+  <section class="relative py-20 md:py-28 overflow-hidden" style="background: #0a0a08;">
+    <!-- Decorative midcentury diamond pattern — top -->
+    <div class="absolute top-0 left-0 right-0 flex justify-center gap-3 py-4 pointer-events-none opacity-[0.06]">
+      {Array.from({length: 9}).map(() => (
+        <svg width="8" height="8" viewBox="0 0 8 8"><polygon points="4,0 8,4 4,8 0,4" fill="#C4B391"/></svg>
+      ))}
+    </div>
+
     <div class="mx-auto max-w-[1080px] px-6">
       <div class="reveal flex items-end justify-between">
         <div>
-          <p class="font-mono text-[12px] uppercase tracking-[0.25em] text-chartreuse/50">The Roster</p>
+          <p class="font-mono text-[12px] uppercase tracking-[0.25em]" style="color: rgba(196,179,145,0.45);">The Roster</p>
           <h2 class="mt-2 font-sans text-[clamp(1.75rem,3.5vw,2.75rem)] font-semibold tracking-tight text-white">Our Artists</h2>
         </div>
         <a href="/artists" class="link-slide hidden items-center gap-2 font-mono text-[13px] uppercase tracking-[0.12em] text-white/40 transition-colors hover:text-chartreuse sm:inline-flex">
@@ -99,7 +134,7 @@ const featuredArtists = allArtists
               data-tz={translateZ}
               data-z={total - Math.abs(offset)}
             >
-              <div class="relative h-[360px] w-[260px] overflow-hidden rounded-lg shadow-2xl shadow-black/50 transition-all duration-500 ease-out">
+              <div class="relative h-[360px] w-[260px] overflow-hidden rounded-xl shadow-2xl shadow-black/50 transition-all duration-500 ease-out" style="border: 1px solid rgba(196,179,145,0.08);">
                 <img
                   src={artist.data.photo}
                   alt={artist.data.name}
@@ -125,7 +160,7 @@ const featuredArtists = allArtists
       <div class="mt-10 -mx-6 px-6 flex gap-4 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-4 md:hidden" style="-webkit-overflow-scrolling: touch;">
         {featuredArtists.map((artist) => (
           <a href={`/artists/${artist.id}`} class="group flex-shrink-0 snap-start" style="width: 70vw; max-width: 280px;">
-            <div class="relative aspect-[3/4] overflow-hidden rounded-lg shadow-xl shadow-black/50">
+            <div class="relative aspect-[3/4] overflow-hidden rounded-xl shadow-xl shadow-black/50" style="border: 1px solid rgba(196,179,145,0.08);">
               <img
                 src={artist.data.photo}
                 alt={artist.data.name}
@@ -152,14 +187,24 @@ const featuredArtists = allArtists
     </div>
   </section>
 
-  <!-- CTA — chartreuse accent strip -->
-  <section class="bg-chartreuse py-20 md:py-28">
-    <div class="reveal mx-auto max-w-[800px] px-6 text-center">
-      <p class="font-sans text-[clamp(1.25rem,2.5vw,1.75rem)] font-medium leading-relaxed text-black">
+  <!-- CTA — warm sand tone instead of harsh chartreuse -->
+  <section class="relative py-20 md:py-28 overflow-hidden" style="background: #FAECDB;">
+    <!-- Subtle texture -->
+    <div class="absolute inset-0 pointer-events-none opacity-[0.03]" style="background-image: url('data:image/svg+xml,%3Csvg width=&quot;60&quot; height=&quot;60&quot; viewBox=&quot;0 0 60 60&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;%3E%3Cg fill=&quot;none&quot; fill-rule=&quot;evenodd&quot;%3E%3Cg fill=&quot;%23000&quot; fill-opacity=&quot;1&quot;%3E%3Cpath d=&quot;M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z&quot;/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+    <!-- Decorative starburst -->
+    <svg class="absolute right-[10%] top-1/2 -translate-y-1/2 opacity-[0.04] pointer-events-none hidden md:block" width="300" height="300" viewBox="0 0 200 200" fill="none">
+      {Array.from({length: 16}).map((_, i) => (
+        <line x1="100" y1="100" x2={100 + 90 * Math.cos(i * Math.PI / 8)} y2={100 + 90 * Math.sin(i * Math.PI / 8)} stroke="#000" stroke-width="0.8" />
+      ))}
+      <circle cx="100" cy="100" r="4" fill="#000"/>
+    </svg>
+
+    <div class="reveal mx-auto max-w-[700px] px-6 text-center relative z-10">
+      <p class="font-sans text-[clamp(1.25rem,2.5vw,1.75rem)] font-medium leading-relaxed" style="color: #1a1a16;">
         Interested in working with us? Whether you're an artist, collaborator, or just a fan — we'd love to hear from you.
       </p>
       <div class="mt-10">
-        <a href="/contact" class="link-slide inline-flex items-center gap-2 font-mono text-[13px] uppercase tracking-[0.12em] text-black/50 transition-colors hover:text-black">
+        <a href="/contact" class="inline-flex items-center gap-3 rounded-full px-8 py-4 font-mono text-[13px] uppercase tracking-[0.15em] transition-all duration-300 hover:gap-5" style="background: #1a1a16; color: #FAECDB;">
           Get in Touch <span class="text-base">&#8594;</span>
         </a>
       </div>
@@ -169,20 +214,22 @@ const featuredArtists = allArtists
 </PageLayout>
 
 <style>
-  .value-card {
+  .warm-card {
     cursor: default;
+    background: rgba(196, 179, 145, 0.03);
+    border: 1px solid rgba(196, 179, 145, 0.08);
   }
-  .value-card:hover {
-    border-color: rgba(231, 252, 186, 0.15);
-    background: rgba(231, 252, 186, 0.04);
+  .warm-card:hover {
+    border-color: rgba(196, 179, 145, 0.18);
+    background: rgba(196, 179, 145, 0.06);
     transform: translateY(-6px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3),
-                0 0 0 1px rgba(231, 252, 186, 0.08);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25),
+                0 0 0 1px rgba(196, 179, 145, 0.06);
   }
   @media (max-width: 767px) {
-    .value-card:active {
-      border-color: rgba(231, 252, 186, 0.15);
-      background: rgba(231, 252, 186, 0.04);
+    .warm-card:active {
+      border-color: rgba(196, 179, 145, 0.18);
+      background: rgba(196, 179, 145, 0.06);
     }
   }
 
@@ -195,6 +242,14 @@ const featuredArtists = allArtists
   .reveal.is-visible {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  .hero-starburst {
+    animation: slow-spin 120s linear infinite;
+  }
+  @keyframes slow-spin {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
   }
 </style>
 
@@ -240,10 +295,10 @@ const featuredArtists = allArtists
       });
     }
 
-    // ---- Parallax scroll for hero tagline ----
+    // ---- Parallax scroll for hero ----
     const hero = document.querySelector('section:first-child') as HTMLElement;
     if (hero) {
-      const heroContent = hero.querySelector('.flex.flex-col') as HTMLElement;
+      const heroContent = hero.querySelector('.relative.flex.flex-col') as HTMLElement;
       if (heroContent) {
         window.addEventListener('scroll', () => {
           const scrollY = window.scrollY;
