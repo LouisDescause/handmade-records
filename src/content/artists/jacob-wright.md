@@ -1,7 +1,7 @@
 ---
 name: "Jacob Wright"
 photo: "/images/artists/jacob-wright.jpg"
-genres: ["Indie Pop", "Alternative"]
+genres: ["Alt-Folk", "Indie", "Americana"]
 location: "Los Angeles, CA"
 bio_short: "Earnest, eclectic, and anthemic — songwriting shaped by faith, identity, and the deserts of Arizona."
 featured: true
